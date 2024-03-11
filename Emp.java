@@ -6,31 +6,20 @@ import java.util.List;
 import java.util.Random;
 
 public class Emp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         EmployeeManager employeeManager = new EmployeeManager();
         Thread thread = new Thread(employeeManager);
         thread.start();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        List<Employee> employees = employeeManager.getEmployees();
+        thread.join();
 
         System.out.println("Sorted by Age:");
-        for (Employee employee : employees) {
-            System.out.println("Name: " + employee.getName() + ", Age: " + employee.getAge() + ", Salary: " + employee.getSalary());
-        }
-
-        employeeManager.sortEmployeesBySalary();
-        employees = employeeManager.getEmployees();
+        employeeManager.getEmployees().forEach(employee ->
+                System.out.println("Name: " + employee.getName() + ", Age: " + employee.getAge() + ", Salary: " + employee.getSalary()));
 
         System.out.println("\nSorted by Salary:");
-        for (Employee employee : employees) {
-            System.out.println("Name: " + employee.getName() + ", Age: " + employee.getAge() + ", Salary: " + employee.getSalary());
-        }
+        employeeManager.sortEmployeesBySalary();
+        employeeManager.getEmployees().forEach(employee ->
+                System.out.println("Name: " + employee.getName() + ", Age: " + employee.getAge() + ", Salary: " + employee.getSalary()));
     }
 
     public static class Employee {
@@ -48,24 +37,12 @@ public class Emp {
             return name;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
         public int getAge() {
             return age;
         }
 
-        public void setAge(int age) {
-            this.age = age;
-        }
-
         public double getSalary() {
             return salary;
-        }
-
-        public void setSalary(double salary) {
-            this.salary = salary;
         }
     }
 
