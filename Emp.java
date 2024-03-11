@@ -1,7 +1,7 @@
 package java_demo;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -77,11 +77,11 @@ public class Emp {
         }
 
         public void sortEmployeesByAge() {
-            employees.sort(Comparator.comparingInt(Employee::getAge));
+            Collections.sort(employees, (e1, e2) -> Integer.compare(e1.getAge(), e2.getAge()));
         }
 
         public void sortEmployeesBySalary() {
-            employees.sort(Comparator.comparingDouble(Employee::getSalary));
+            Collections.sort(employees, (e1, e2) -> Double.compare(e1.getSalary(), e2.getSalary()));
         }
 
         @Override
